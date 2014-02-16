@@ -23,7 +23,8 @@ Rickshaw.Graph.Renderer = Rickshaw.Class.create( {
 			unstack: true,
 			padding: { top: 0.01, right: 0, bottom: 0.01, left: 0 },
 			stroke: false,
-			fill: false
+			fill: false,
+            dashed: false
 		};
 	},
 

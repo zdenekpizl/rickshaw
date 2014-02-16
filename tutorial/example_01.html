@@ -1,24 +1,21 @@
+<head>
 <!doctype>
-<script src="../vendor/d3.min.js"></script>
-<script src="../vendor/d3.layout.min.js"></script>
-<script src="../rickshaw.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../rickshaw.css">
+    <link type="text/css" rel="stylesheet" href="../examples/css/lines.css">
+    <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css">
+    <script src="../vendor/d3.v3.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+
+    <script src="../rickshaw.js"></script>
+
+</head>
+<body>
 
 <div id="chart"></div>
+<div id="slider">
+</div>
 
-<script>
-
-var data = [ { x: 0, y: 40 }, { x: 1, y: 49 }, { x: 2, y: 17 }, { x: 3, y: 42 } ];
-
-var graph = new Rickshaw.Graph( {
-	element: document.querySelector("#chart"),
-	width: 580,
-	height: 250,
-	series: [ {
-		color: 'steelblue',
-		data: data
-	} ]
-} );
-
-graph.render();
-
-</script>
+<script src="./example01.js"></script>
+</body>
