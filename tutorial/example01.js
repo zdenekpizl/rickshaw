@@ -32,28 +32,30 @@ var graph = new Rickshaw.Graph( {
             ]
 } );
 
-var hover = new Rickshaw.Graph.HoverDetail({ graph: graph });
-/*var slider = new Rickshaw.Graph.RangeSlider.Preview({graph: graph, element: document.querySelector('#slider')});*/
+/*var hover = new Rickshaw.Graph.HoverDetail({ graph: graph });
+var slider = new Rickshaw.Graph.RangeSlider.Preview({graph: graph, element: document.querySelector('#slider')});*/
 
 graph.render();
 
 
 var svvg = d3.select("svg");
 
+var cx = 290;
+var cy = 145;
 var txt = svvg.append("text")
     .style("fill", "black")
-    .attr("x", 0)
-    .attr("y", 0)
+    .attr("x", cx)
+    .attr("y", cy)
     .attr("text-anchor", "middle")
     .text("42");
 
 
 var textw = txt.node().getBBox().width;
-var cx = 290;
-var cy = 145;
 var scale = 0.8*cx/textw;
-txt
-    .attr("transform","scale("+scale+")");
-
-txt
-    .attr("transform", "translate(cx,cy)");
+var scaletxt = scale.toString();
+var xshifttxt =  cx-scale*cx;
+xshifttxt = xshifttxt.toString();
+var yshifttxt =  cy-scale*cy;
+yshifttxt = yshifttxt.toString();
+var transform="matrix("+scaletxt+", 0, 0, "+scaletxt+", "+xshifttxt+", "+yshifttxt+")";
+txt.attr("transform",transform);
