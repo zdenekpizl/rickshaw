@@ -37,3 +37,23 @@ var hover = new Rickshaw.Graph.HoverDetail({ graph: graph });
 
 graph.render();
 
+
+var svvg = d3.select("svg");
+
+var txt = svvg.append("text")
+    .style("fill", "black")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("text-anchor", "middle")
+    .text("42");
+
+
+var textw = txt.node().getBBox().width;
+var cx = 290;
+var cy = 145;
+var scale = 0.8*cx/textw;
+txt
+    .attr("transform","scale("+scale+")");
+
+txt
+    .attr("transform", "translate(cx,cy)");

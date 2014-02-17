@@ -3616,10 +3616,24 @@ Rickshaw.Graph.Renderer.Gauge = Rickshaw.Class.create( Rickshaw.Graph.Renderer, 
         });
     },
 
+    get_cx: function(g) {
+        var element = g.element;
+        var w = g.width;
+        return w/2;
+    },
+
+    get_cy: function(g) {
+        var element = g.element;
+        var height = g.height;
+        return height/2;
+    },
+
 	_styleGauge: function(serie) {
 
         var graph = this.graph;
         var data = serie.data.slice(-1)[0].y;
+        var cx = this.get_cx(graph);
+        var cy = this.get_cy(graph);
 
         graph.vis.select('.gauge')
             .attr('fill', serie.color);
@@ -3631,32 +3645,38 @@ Rickshaw.Graph.Renderer.Gauge = Rickshaw.Class.create( Rickshaw.Graph.Renderer, 
             }
 			graph.vis
                 .select('.gauge')
-                .data(data)
 				.attr('stroke', this.stroke)
-				.attr('stroke-width', this.strokeWidth);
+				.attr('stroke-width', this.strokeWidth)
+                .data(data);
 		}
+
+        var color = d3.rgb(serie.color).brighter().brighter().toString();
+        var textnode = graph.vis.append("text")
+            .style("fill", color)
+            .attr("x", cx)
+            .attr("y", cy)
+            .attr("text-anchor", "middle")
+            .text(data);
+
+        var textw = textnode.node().getBBox().width;
+        var texth = textnode.node().getBBox().height;
+
+        var scale = 0.8*cx/textw;
+        textnode
+            .attr("transform","scale("+scale+")")
+            .attr("x", cx)
+            .attr("y", cy);
+
 
 	},
 
 	render: function(args) {
 
-        function get_cx(g) {
-            var element = g.element;
-            var w = g.width;
-            return w/2;
-        }
-
-        function get_cy(g) {
-            var element = g.element;
-            var height = g.height;
-            return height/2;
-        }
-
 		var graph = this.graph;
         args = args || {};
 		var series = args.series || graph.series;
-        var cx = get_cx(graph);
-        var cy = get_cy(graph);
+        var cx = this.get_cx(graph);
+        var cy = this.get_cy(graph);
         var r = cy/2;
 
 		var gauge = graph.vis
